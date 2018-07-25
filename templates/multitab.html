@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>Dashboard</title>
+    <!-- 导入jquery核心类库 -->
+    <script type="text/javascript" src="/static/js/jquery-1.8.3.js"></script>
+    <!-- 导入easyui类库 -->
+    <link rel="stylesheet" type="text/css" href="/static/js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/js/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/js/easyui/ext/portal.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/default.css">
+    <script type="text/javascript" src="/static/js/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/static/js/easyui/ext/jquery.portal.js"></script>
+    <script type="text/javascript" src="/static/js/easyui/ext/jquery.cookie.js"></script>
+    <script src="/static/js/easyui/locale/easyui-lang-en.js" type="text/javascript"></script>
+    <script type="text/javascript">
+  // 工具栏
+	var toolbar = [ {
+		id : 'button-view',	
+		text : 'search',
+		iconCls : 'icon-save',
+		handler : doDownload
+	}];
+
+		//定义冻结列
+	var frozenColumns = [ [ {
+		field : 'id',
+		checkbox : true,
+		rowspan : 2
+	} ] ];
+
+
+	// 定义标题栏
+	var columns = [ [ {
+		field : 'shop_id',
+		title : 'Shop Id',
+		width : 50,
+		rowspan : 2,
+		align : 'center'
+	}, {
+		field : 'avg_wk_sales',
+		title : 'Avg weekly sale',
+		width : 100,
+		rowspan : 2,
+		align : 'center'
+	}, {
+		field : 'max_sale',
+		title : 'Max sale',
+		width : 90,
+		rowspan : 2,
+		align : 'center'
+	}, {
+		field : 'min_sale',
+		title : 'Min sale',
+		width : 90,
+		rowspan : 2,
+		align : 'center'
+	}, {
+		field : 'avg_itemsold',
+		title : 'Avg weekly items sold',
+		width : 100,
+		rowspan : 2,
+		align : 'center'
+	}, {
+		field : 'item_price',
+		title : 'Item price',
+		width : 90,
+		rowspan : 2,
+		align : 'center'
+	}  ] ];
+	$(function(){
+		// 初始化 datagrid
+		// 创建grid
+		$('#grid').datagrid( {
+			iconCls : 'icon-forward',
+			fit : true,
+			border : false,
+			rownumbers : true,
+			striped : true,
+			pageList: [50],
+			pagination : true,
+			toolbar : toolbar,
+			url : "http://127.0.0.1:5000/multitabjson",
+			idField : 'id', 
+			frozenColumns : frozenColumns,
+			columns : columns,
+			onClickRow : onClickRow,
+			onDblClickRow : doDblClickRow
+		});
+		
+	//	$("body").css({visibility:"visible"});
+		
+	});
+      // 双击
+	function doDblClickRow(rowIndex, rowData) {
+		var items = $('#grid').datagrid('selectRow',rowIndex);
+		doView();
+	}
+	// 单击
+	function onClickRow(rowIndex){
+
+	}
+  function doView() {
+		
+	}
+  function doDownload() {
+    alert('download')
+    location.href="http://localhost:5000/download/output.xlsx";
+	}    
+</script> </head>
+  <body class="easyui-layout" style="width: 590px; margin-top: 0px; height: 271px;">
+    <div region="center" border="false">
+      <table id="grid">
+      </table>
+    </div>
+    
+  </body>
+</html>
