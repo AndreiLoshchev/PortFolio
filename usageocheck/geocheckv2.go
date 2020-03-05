@@ -3,7 +3,7 @@ package usageoreverse
 
 import (
 	"bufio"
-    "bytes"
+        "bytes"
 	"math"
 	"strconv"
 	"strings"
